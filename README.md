@@ -8,7 +8,9 @@ Usage
 
 To initialize a new png image:
 
-    img = pngImage(<path to image>, newRowCallback)
+```lua
+local img = pngImage(<path to image>, custom_stream_data, newRowCallback)
+```
 
 so that would be
 ```lua
@@ -16,7 +18,13 @@ local pngImage = require("png")
 local img      = pngImage("Example.png")
 print(("pixel 1,1 has the colors r:%d g:%d b:%d"):format(img:get_pixel(1,1):unpack()))
 ```
-The image will then be decoded. The available data from the image is as follows
+
+You can use custom_stream_data to directly pipe a string of bytes into the decoder like this
+```lua
+local img = pngImage(nil,{input="epic data string"},newRowCallback)
+```
+
+The decoded image provides these fields:
 ```
 img.width = 0
 img.height = 0
