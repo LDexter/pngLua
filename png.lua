@@ -41,26 +41,26 @@ local PngImage = {}
 local lib = {}
 
 setmetatable(Stream,{__call=function(methods,param)
-	local self = {
-		position = 1,
-		data     = {}
-	}
+    local self = {
+        position = 1,
+        data     = {}
+    }
 
     local str = ""	
     if (param.inputF ~= nil) then
-		local file = fs.open(param.inputF, "rb")
-		str = file.readAll()
-		file.close()
+        local file = fs.open(param.inputF, "rb")
+        str = file.readAll()
+        file.close()
     end
     if (param.input ~= nil) then
-		str = param.input
+        str = param.input
     end
 
     for i=1,#str do
-		self.data[i] = str:byte(i, i)
+        self.data[i] = str:byte(i, i)
     end
 
-	return setmetatable(self,{__index=methods})
+    return setmetatable(self,{__index=methods})
 end})
 
 -- constructors
@@ -250,7 +250,7 @@ setmetatable(ScanLine,{__call=function(methods,stream,depth,colorType,palette,le
 end})
 
 setmetatable(PngImage,{__call=function(methods,path,custom_stream,progCallback)
-	local self = {
+    local self = {
         width     = 0,
         height    = 0,
         depth     = 0,
@@ -290,50 +290,50 @@ setmetatable(PngImage,{__call=function(methods,path,custom_stream,progCallback)
         if progCallback ~= nil then progCallback(i, self.height) end
     end
 
-	return setmetatable(self,{__index=methods})
+    return setmetatable(self,{__index=methods})
 end})
 
 -- methods --
 function Stream:seek(amount)
-	self.position = self.position + amount
+    self.position = self.position + amount
 end
 
 function Stream:readByte()
-	if self.position <= 0 then self:seek(1) return nil end
-	local byte = self.data[self.position]
-	self:seek(1)
-	return byte
+    if self.position <= 0 then self:seek(1) return nil end
+    local byte = self.data[self.position]
+    self:seek(1)
+    return byte
 end
 
 function Stream:readChar()
-	if self.position <= 0 then self:seek(1) return nil end
+    if self.position <= 0 then self:seek(1) return nil end
 
     local byte = self:readByte()
 
     if not byte then error("no more bytes to read",3) end
 
-	return string.char(byte)
+    return string.char(byte)
 end
 
 function Stream:readChars(num)
-	if self.position <= 0 then self:seek(1) return nil end
-	local str = ""
-	local i = 1
-	while i <= num do
-		str = str .. self:readChar()
-		i = i + 1
-	end
-	return str, i-1
+    if self.position <= 0 then self:seek(1) return nil end
+    local str = ""
+    local i = 1
+    while i <= num do
+        str = str .. self:readChar()
+        i = i + 1
+    end
+    return str, i-1
 end
 
 function Stream:readInt(num)
-	if self.position <= 0 then self:seek(1) return nil end
+    if self.position <= 0 then self:seek(1) return nil end
 
-	num = num or 4
+    num = num or 4
 
-	local bytes, count = self:readBytes(num)
+    local bytes, count = self:readBytes(num)
 
-	return self:bytesToNum(bytes), count
+    return self:bytesToNum(bytes), count
 end
 
 function Stream:readBytes(num)
@@ -353,21 +353,21 @@ function Stream:readBytes(num)
 end
 
 function Stream:bytesToNum(bytes)
-	local n = 0
+    local n = 0
 
-	for _,v in ipairs(bytes) do
-		n = n*256 + v
-	end
+    for _,v in ipairs(bytes) do
+        n = n*256 + v
+    end
 
-	n = (n > 2147483647) and (n - 4294967296) or n
+    n = (n > 2147483647) and (n - 4294967296) or n
 
-	return n
+    return n
 end
 
 function Stream:writeByte(byte)
-	if self.position <= 0 then self:seek(1) return end
-	self.data[self.position] = byte
-	self:seek(1)
+    if self.position <= 0 then self:seek(1) return end
+    self.data[self.position] = byte
+    self:seek(1)
 end
 
 function Chunk:getDataStream()
