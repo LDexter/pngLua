@@ -383,7 +383,7 @@ function Pixel:format()
 end
 
 function Pixel:unpack()
-    return this.r,this.g,this.b,this.a
+    return self.r,self.g,self.b,self.a
 end
 
 function ScanLine:bitFromColorType(colorType)

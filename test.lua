@@ -15,9 +15,9 @@ local function find_closest_color(c)
 		n=n+1
 		result[n] = {
 			dist=math.sqrt(
-				(v[1]-c.R/255)^2 +
-				(v[2]-c.G/255)^2 +
-				(v[3]-c.B/255)^2
+				(v[1]-c.r)^2 +
+				(v[2]-c.g)^2 +
+				(v[3]-c.b)^2
 			),  color=k,
 			r=v[1],g=v[2],b=v[3]
 		}
@@ -31,8 +31,10 @@ end
 
 for x=1,image.width do
 	for y=1,image.height do
-		pixelbox.CANVAS[y+6][x+2] = find_closest_color(image:get_pixel(x,y))
+		pixelbox.CANVAS[y][x] = find_closest_color(image:get_pixel(x,y))
 	end
 end
 
 pixelbox:render()
+
+os.pullEvent("char")
