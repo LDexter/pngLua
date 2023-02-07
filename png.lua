@@ -133,10 +133,10 @@ setmetatable(Pixel,{__call=function(methods,stream, depth, colorType, palette)
         self.a = 1
     end
     if colorType == 2 then
-        self.R = stream:readInt(bps)/255
-        self.G = stream:readInt(bps)/255
-        self.B = stream:readInt(bps)/255
-        self.A = 1
+        self.r = stream:readInt(bps)/255
+        self.g = stream:readInt(bps)/255
+        self.b = stream:readInt(bps)/255
+        self.a = 1
     end
     if colorType == 3 then
         local index = stream:readInt(bps)+1
