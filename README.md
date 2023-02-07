@@ -1,6 +1,7 @@
 ![pngLua logo](/logo.png?raw=true)
 
-A pure lua implementation of a PNG decoder
+Png decoder implementation designed to be used in the computercraft minecraft mod.
+The main goal of this is to refactor and clean up the original library and make it nicer to use.
 
 Usage
 -----
@@ -8,6 +9,13 @@ Usage
 To initialize a new png image:
 
     img = pngImage(<path to image>, newRowCallback)
+
+so that would be
+```lua
+local pngImage = require("png")
+local img      = pngImage("Example.png")
+print(("pixel 1,1 has the colors r:%d g:%d b:%d"):format(table.unpack(img:get_pixel(1,1))))
+```
     
 The image will then be decoded. The available data from the image is as follows
 ```
@@ -16,7 +24,7 @@ img.height = 0
 img.depth = 0
 img.colorType = 0
 
-img:getPixel(x, y)
+img:get_pixel(x, y)
 ```
 Decoding the image is synchronous, and will take a long time for large images.
 

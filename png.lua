@@ -249,7 +249,7 @@ setmetatable(ScanLine,{__call=function(methods,stream,depth,colorType,palette,le
     return setmetatable(self,{__index=methods})
 end})
 
-setmetatable(PngImage,{__call=function(methods,path,progCallback)
+setmetatable(PngImage,{__call=function(methods,path,custom_stream,progCallback)
 	local self = {
         width     = 0,
         height    = 0,
@@ -258,7 +258,7 @@ setmetatable(PngImage,{__call=function(methods,path,progCallback)
         scanLines = {}
     }
 
-    local str = Stream({inputF = path})
+    local str = Stream(custom_stream or {inputF = path})
     if str:readChars(8) ~= "\137\080\078\071\013\010\026\010" then error("Not a PNG") end
 
     local ihdr = {}
@@ -388,10 +388,10 @@ function ScanLine:bitFromColorType(colorType)
     if colorType == 3 then return 1 end
     if colorType == 4 then return 2 end
     if colorType == 6 then return 4 end
-    error 'Invalid colortype'
+    error("Invalid colortype")
 end
 
-function ScanLine:getPixel(pixel)
+function ScanLine:get_pixel(pixel)
     return self.pixels[pixel]
 end
 
@@ -405,7 +405,7 @@ function ScanLine:_PaethPredict(a, b, c)
     return c
 end
 
-function PngImage:getPixel(x, y)
+function PngImage:get_pixel(x, y)
     local pixel = self.scanLines[y].pixels[x]
     return pixel
 end
