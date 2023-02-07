@@ -14,9 +14,8 @@ so that would be
 ```lua
 local pngImage = require("png")
 local img      = pngImage("Example.png")
-print(("pixel 1,1 has the colors r:%d g:%d b:%d"):format(table.unpack(img:get_pixel(1,1))))
+print(("pixel 1,1 has the colors r:%d g:%d b:%d"):format(img:get_pixel(1,1):unpack()))
 ```
-    
 The image will then be decoded. The available data from the image is as follows
 ```
 img.width = 0

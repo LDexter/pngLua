@@ -127,37 +127,37 @@ setmetatable(Pixel,{__call=function(methods,stream, depth, colorType, palette)
     local bps = math.floor(depth/8)
     if colorType == 0 then
         local grey = stream:readInt(bps)
-        self.R = grey
-        self.G = grey
-        self.B = grey
-        self.A = 255
+        self.r = grey/255
+        self.g = grey/255
+        self.b = grey/255
+        self.a = 1
     end
     if colorType == 2 then
-        self.R = stream:readInt(bps)
-        self.G = stream:readInt(bps)
-        self.B = stream:readInt(bps)
-        self.A = 255
+        self.R = stream:readInt(bps)/255
+        self.G = stream:readInt(bps)/255
+        self.B = stream:readInt(bps)/255
+        self.A = 1
     end
     if colorType == 3 then
         local index = stream:readInt(bps)+1
         local color = palette:getColor(index)
-        self.R = color.R
-        self.G = color.G
-        self.B = color.B
-        self.A = 255
+        self.r = color.R/255
+        self.g = color.G/255
+        self.b = color.B/255
+        self.a = 1
     end
     if colorType == 4 then
         local grey = stream:readInt(bps)
-        self.R = grey
-        self.G = grey
-        self.B = grey
-        self.A = stream:readInt(bps)
+        self.r = grey/255
+        self.g = grey/255
+        self.b = grey/255
+        self.a = stream:readInt(bps)/255
     end
     if colorType == 6 then
-        self.R = stream:readInt(bps)
-        self.G = stream:readInt(bps)
-        self.B = stream:readInt(bps)
-        self.A = stream:readInt(bps)
+        self.r = stream:readInt(bps)/255
+        self.g = stream:readInt(bps)/255
+        self.b = stream:readInt(bps)/255
+        self.d = stream:readInt(bps)/255
     end
 
     return setmetatable(self,{__index=methods})
@@ -380,6 +380,10 @@ end
 
 function Pixel:format()
     return string.format("R: %d, G: %d, B: %d, A: %d", self.R, self.G, self.B, self.A)
+end
+
+function Pixel:unpack()
+    return this.r,this.g,this.b,this.a
 end
 
 function ScanLine:bitFromColorType(colorType)
