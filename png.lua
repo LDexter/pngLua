@@ -29,12 +29,12 @@ local table_sort = table.sort
 local math_max = math.max
 local band, lshift, rshift = bit32.band,bit32.lshift,bit32.rshift
 
-local Stream = {}
-local Chunk = {}
-local IHDR  = {}
-local IDAT  = {}
-local PLTE  = {}
-local Pixel = {}
+local Stream   = {}
+local Chunk    = {}
+local IHDR     = {}
+local IDAT     = {}
+local PLTE     = {}
+local Pixel    = {}
 local ScanLine = {}
 local PngImage = {}
 
@@ -274,9 +274,9 @@ setmetatable(PngImage,{__call=function(methods,path,custom_stream,progCallback)
         if ch.name == "IEND" then break end
     end
 
-    self.width  = ihdr.width
-    self.height = ihdr.height
-    self.depth  = ihdr.bitDepth
+    self.width     = ihdr.width
+    self.height    = ihdr.height
+    self.depth     = ihdr.bitDepth
     self.colorType = ihdr.colorType
 
     local dataStr = ""
