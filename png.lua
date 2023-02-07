@@ -617,7 +617,6 @@ local function parse_huffmantables(bs)
     return littable, disttable
 end
 
-
 local tdecode_len_base
 local tdecode_len_nextrabits
 local tdecode_dist_base
@@ -687,7 +686,6 @@ local function parse_compressed_item(bs, outstate, littable, disttable)
     return false
 end
 
-
 local function parse_block(bs, outstate)
     local bfinal = bs:read(1)
     local btype  = bs:read(2)
@@ -720,7 +718,6 @@ local function parse_block(bs, outstate)
 
     return bfinal ~= 0
 end
-
 
 local function inflate(t)
     local bs = is_bitstream[t.input] and t.input or bitstream_from_bytestream(bytestream_from_string(t.input))
