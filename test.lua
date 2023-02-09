@@ -1,7 +1,8 @@
+package.path = "/pngLua/?.lua;" .. package.path
 local png_lua  = require("png")
-local pixelbox = require("pixelbox_lite").new(term.current()) -- https://github.com/9551-Dev/apis/blob/main/pixelbox_lite.lua
+local pixelbox = require("lib/pixelbox_lite").new(term.current()) -- https://github.com/9551-Dev/apis/blob/main/pixelbox_lite.lua
 
-local image = png_lua("pngLua/Example.png")
+local image = png_lua("pngLua/test.png")
 
 local palette = {}
 for i=0,15 do
