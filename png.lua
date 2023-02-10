@@ -3,13 +3,15 @@ local canvas = require("lib/canvas")
 local quill = require("lib/quill")
 local pixelbox = require("lib/pixelbox_lite").new(term.current()) -- https://github.com/9551-Dev/apis/blob/main/pixelbox_lite.lua
 
-local factor = 2
+local factor = 4
 local dirInput = "/pngLua/images/input/"
 local dirOutput = "/pngLua/images/output/"
+
 
 -- Make image directories
 fs.makeDir(dirInput)
 fs.makeDir(dirOutput)
+
 
 -- Find all input pngs
 local files = fs.list(dirInput)
@@ -32,7 +34,7 @@ end
 
 
 -- Opening 
-canvas.open(dirOutput .. "logo.bimg")
-sleep(2)
+canvas.open(dirOutput .. "left.bimg")
+sleep(10)
 term.clear()
 -- os.pullEvent("char")

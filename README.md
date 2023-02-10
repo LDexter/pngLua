@@ -1,7 +1,7 @@
 ![pngLua logo](/logo.png?raw=true)
 
 Png decoder implementation designed to be used in the computercraft minecraft mod.
-The main goal of this is to refactor and clean up the original library and make it nicer to use.
+The main goal of this is to further increase UX for developers, add bimg format conversion, enable easy batch conversion, and _eventually_ build a command line interface around these tools for an alternative experience.
 
 ## Usage - Current Fork Additions
 
