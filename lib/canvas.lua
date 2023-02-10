@@ -37,7 +37,7 @@ local function find_closest_color(c)
 end
 
 
--- Converts png
+-- Converts png to bimg-ready table
 function canvas.convert(path, factor)
     -- Prepare and resize png
     local image = png_lua(path)
@@ -50,11 +50,12 @@ function canvas.convert(path, factor)
         end
     end
 
+    -- Return canvas, not bimg table
     return pixelbox.CANVAS
 end
 
 
--- Saves already converted image
+-- Saves already converted image as bimg
 function canvas.save(image, path)
     -- Serialise and write
     local file = textutils.serialise(image)
@@ -62,7 +63,7 @@ function canvas.save(image, path)
 end
 
 
--- Renders unconverted png with potential to save
+-- Renders png with potential to save as bimg format
 function canvas.render(path, factor, save)
     -- Convert and render
     local canv = canvas.convert(path, factor)
@@ -77,7 +78,7 @@ function canvas.render(path, factor, save)
 end
 
 
--- Opens already saved conversion
+-- Opens already saved bimg
 function canvas.open(path)
     -- Open and render
     local image = bimg.load(path)
@@ -85,7 +86,7 @@ function canvas.open(path)
 end
 
 
--- Clears the canvas
+-- Clears the canvas and terminal
 function canvas.clear(bg)
     -- Wipe canvas, defaulting to background
     local bg = bg or term.getBackgroundColor() or colors.black

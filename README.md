@@ -14,19 +14,19 @@ Run png for full demo (unfinished, actual interface soon)
 Rendering images
 
 ```lua
--- Converts png
+-- Converts png to bimg-ready table
 canvas.convert(path, factor)
 
--- Saves already converted image
+-- Saves already converted image as bimg
 canvas.save(image, path)
 
--- Renders unconverted png with potential to save
+-- Renders png with potential to save as bimg format
 canvas.render(path, factor, save)
 
--- Opens already saved conversion
+-- Opens already saved bimg
 canvas.open(path)
 
--- Clears the canvas
+-- Clears the canvas and terminal
 canvas.clear(bg)
 ```
 
