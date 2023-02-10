@@ -30,7 +30,7 @@ canvas.open(path)
 canvas.clear(bg)
 ```
 
-## Usage - Unchanged From 9551-Dev Fork
+## Usage - Unchanged From [9551-Dev's Fork](https://github.com/9551-Dev/pngLua)
 
 To initialize a new png image:
 
