@@ -2,9 +2,9 @@
 local canvas = require("lib/canvas")
 local quill = require("lib/quill")
 
-local factor = 4
-local dirInput = "/DALL-CC/lib/pngLua/images/input/"
-local dirOutput = "/DALL-CC/lib/pngLua/images/output/"
+local factor = 2
+local dirInput = "pngLua/images/input/"
+local dirOutput = "pngLua/images/output/"
 
 
 -- Make image directories
@@ -33,7 +33,6 @@ end
 
 
 -- Opening 
-canvas.open(dirOutput .. "logo.bimg")
-sleep(10)
+canvas.open(dirOutput .. "cat.bimg")
+os.pullEvent("char")
 term.clear()
--- os.pullEvent("char")
