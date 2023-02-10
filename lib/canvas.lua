@@ -1,11 +1,12 @@
 local canvas = {}
 
-package.path = "pngLua/?.lua;" .. package.path
+-- package.path = "/DALL-CC/lib/pngLua/?.lua;" .. package.path
 local png_lua  = require("lib/png_lua")
 local pixelbox = require("lib/pixelbox_lite").new(term.current()) -- https://github.com/9551-Dev/apis/blob/main/pixelbox_lite.lua
 local resize = require("lib/resize")
 local quill = require("lib/quill")
 local bimg = require("lib/bimg")
+
 
 -- Set palette
 local palette = {}

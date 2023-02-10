@@ -1,4 +1,4 @@
-package.path = "/pngLua/?.lua;" .. package.path
+-- package.path = "/pngLua/?.lua;" .. package.path
 local canvas = require("lib/canvas")
 local quill = require("lib/quill")
 
