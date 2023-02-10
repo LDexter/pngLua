@@ -7,7 +7,7 @@ The main goal of this is to refactor and clean up the original library and make 
 
 ### Command Line Interface
 
-Run png (unfinished, actual interface soon)
+Run png for full demo (unfinished, actual interface soon)
 
 ### Library Interface
 
@@ -18,13 +18,16 @@ Rendering images
 canvas.convert(path, factor)
 
 -- Saves already converted image
-canvas.save(canv, path)
+canvas.save(image, path)
 
 -- Renders unconverted png with potential to save
 canvas.render(path, factor, save)
 
 -- Opens already saved conversion
 canvas.open(path)
+
+-- Clears the canvas
+canvas.clear(bg)
 ```
 
 ## Usage - Unchanged From 9551-Dev Fork

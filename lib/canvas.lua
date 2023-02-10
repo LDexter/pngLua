@@ -5,6 +5,7 @@ local png_lua  = require("lib/png_lua")
 local pixelbox = require("lib/pixelbox_lite").new(term.current()) -- https://github.com/9551-Dev/apis/blob/main/pixelbox_lite.lua
 local resize = require("lib/resize")
 local quill = require("lib/quill")
+local bimg = require("lib/bimg")
 
 -- Set palette
 local palette = {}
@@ -54,10 +55,10 @@ end
 
 
 -- Saves already converted image
-function canvas.save(canv, path)
+function canvas.save(image, path)
     -- Serialise and write
-    local canvJSON = textutils.serialiseJSON(canv)
-    quill.scribe(path, "w", canvJSON)
+    local file = textutils.serialise(image)
+    quill.scribe(path, "wb", file)
 end
 
 
@@ -65,24 +66,34 @@ end
 function canvas.render(path, factor, save)
     -- Convert and render
     local canv = canvas.convert(path, factor)
-    pixelbox:render()
-
+    local image = pixelbox:render()
+    
     -- Potentially save
     if save then
-        canvas.save(canv, save)
+        canvas.save(image, save)
     end
 
-    return canv
+    return image
 end
 
 
 -- Opens already saved conversion
 function canvas.open(path)
     -- Open and render
-    local json = quill.scribe(path, "r")
-    local canv = textutils.unserialiseJSON(json)
-    pixelbox.CANVAS = canv
-    pixelbox:render()
+    local image = bimg.load(path)
+    image:draw()
+end
+
+
+-- Clears the canvas
+function canvas.clear(bg)
+    -- Wipe canvas, defaulting to background
+    local bg = bg or term.getBackgroundColor() or colors.black
+    pixelbox:clear(bg)
+
+    -- Reset terminal
+    term.clear()
+    term.setCursorPos(1, 1)
 end
 
 

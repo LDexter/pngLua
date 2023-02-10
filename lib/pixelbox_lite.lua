@@ -118,6 +118,8 @@ function OBJECT:render()
     local t = self.term
     local blit_line,set_cursor = t.blit,t.setCursorPos
 
+    local image = {}
+
     local w_double = self.width*2
     local canv = self.CANVAS
 
@@ -150,6 +152,10 @@ function OBJECT:render()
             bg_line  [n] = to_blit[bg]
         end
 
+        table.insert(image, {
+            t_cat(char_line, ""),
+            t_cat(fg_line,""),
+            t_cat(bg_line, ""), })
         set_cursor(1,sy)
         blit_line(
             t_cat(char_line,""),
@@ -157,6 +163,8 @@ function OBJECT:render()
             t_cat(bg_line,"")
         )
     end
+    image = {image}
+    return image
 end
 
 function OBJECT:clear(color)
