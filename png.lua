@@ -1,11 +1,10 @@
-package.path = "/pngLua/?.lua;" .. package.path
+package.path = "pngLua/?.lua;" .. package.path
 local canvas = require("lib/canvas")
 local quill = require("lib/quill")
-local pixelbox = require("lib/pixelbox_lite").new(term.current()) -- https://github.com/9551-Dev/apis/blob/main/pixelbox_lite.lua
 
 local factor = 4
-local dirInput = "/pngLua/images/input/"
-local dirOutput = "/pngLua/images/output/"
+local dirInput = "/DALL-CC/lib/pngLua/images/input/"
+local dirOutput = "/DALL-CC/lib/pngLua/images/output/"
 
 
 -- Make image directories
@@ -25,7 +24,7 @@ for _, item in pairs(files) do
     pathOutput = quill.replace(pathOutput, ".png", ".bimg")
 
     -- Convert and serialise
-    local image = canvas.render(pathInput, factor, pathOutput)
+    local canv = canvas.render(pathInput, factor, pathOutput)
 
     -- Wait to preview render
     sleep(2)
@@ -34,7 +33,7 @@ end
 
 
 -- Opening 
-canvas.open(dirOutput .. "left.bimg")
+canvas.open(dirOutput .. "logo.bimg")
 sleep(10)
 term.clear()
 -- os.pullEvent("char")
