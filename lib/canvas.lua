@@ -39,10 +39,23 @@ end
 
 
 -- Converts png to bimg-ready table
-function canvas.convert(path, factor)
-    -- Prepare and resize png
-    local image = png_lua(path)
-    image = resize(image, factor, image.width, image.height)
+function canvas.convert(path)
+    -- Prepare and store png
+    local original = png_lua(path)
+
+    -- Initial sizing
+    local factor = 1
+    local image = original
+    image = resize(original, factor, original.width, original.height)
+
+    -- Decect ability to display
+    local yMax = #pixelbox.CANVAS
+    local xMax = #pixelbox.CANVAS[1]
+    while image.height > yMax or image.width > xMax do
+        -- Downscale accordingly
+        factor = factor + 1
+        image = resize(original, factor, original.width, original.height)
+    end
 
     -- Map image to palette
     for x = 1, image.width do
@@ -65,9 +78,9 @@ end
 
 
 -- Renders png with potential to save as bimg format
-function canvas.render(path, factor, save)
+function canvas.render(path, save)
     -- Convert and render
-    local canv = canvas.convert(path, factor)
+    local canv = canvas.convert(path)
     local image = pixelbox:render()
     
     -- Potentially save
