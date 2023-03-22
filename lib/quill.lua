@@ -3,6 +3,9 @@ local quill = {}
 
 -- Writes, reads, or appends to a file
 function quill.scribe(path, mode, input)
+    -- if not fs.exists(path) then
+    --     return ""
+    -- end
     local text
     local file = fs.open(path, mode)
     if mode == "r" or mode == "rb" then
@@ -130,6 +133,32 @@ function quill.boolify(str, default)
     end
 
     return bool
+end
+
+
+function quill.code(str, path, name)
+    -- Avoid Lua patterns on code
+    -- local literal = quill.literalize(str)
+    -- Find code within wrapping
+    local program = quill.seek(str, "```", "```")
+    -- Find programming language and remove from code --! Inconsistant
+    -- local lang = quill.seek(program, "", "\n")
+    -- lang = quill.truncate(lang)
+    local lang = "lua"
+    program = quill.replace(program, "```", "")
+    program = quill.replace(program, "`", "")
+    program = quill.replace(program, lang .. "\n", "")
+
+    -- Find filetype
+    local filetype = lang
+    if lang == "python" then
+        filetype = "py"
+    end
+
+    -- Append name and type to path
+    path = path .. name .. "." .. filetype
+    -- Write code to file
+    quill.scribe(path, "w", program)
 end
 
 return quill
